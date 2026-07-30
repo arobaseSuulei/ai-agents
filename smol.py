@@ -1,17 +1,18 @@
-from smolagents import CodeAgent,InferenceClientModel, DuckDuckGoSearchTool
+from smolagents import CodeAgent,OpenAIServerModel,InferenceClientModel, DuckDuckGoSearchTool
 import os
 from huggingface_hub import InferenceClient
 from dotenv import load_dotenv
     
 load_dotenv()
     
-HF_TOKEN = os.environ.get("HF_TOKEN")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
  
    
-modelOrg = InferenceClientModel(
-    model_id="moonshotai/Kimi-K2.5",
-    token=HF_TOKEN,
+modelOrg = OpenAIServerModel(
+    model_id="gpt-4o-mini",   # ou "gpt-4o", "gpt-4.1", etc.
+    api_key=OPENAI_API_KEY,
 )
+
 agent = CodeAgent(
     tools=[DuckDuckGoSearchTool()],
     model=modelOrg,
